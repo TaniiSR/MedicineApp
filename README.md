@@ -17,9 +17,7 @@
 * Clean Architecture
 * SOLID Principles 
 
-### Demonstration of Base, Repository layer, with some Custom widgets OR components ###
-
-## Project contains three basic layers of Clean Architecture ##
+## Project contains three basic layers of Clean Architecture with MVVM ##
 * Data Layer
 * Domain Layer
 * Presentation Layer
