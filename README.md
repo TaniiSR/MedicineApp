@@ -5,7 +5,7 @@
 ### Using Technologies ###
 
 * Kotlin
-* Dagger Hilt for Dpendendency Injection
+* Dagger Hilt for Dependency Injection
 * Junit5
 * Kotlin coroutines
 * MVVM
