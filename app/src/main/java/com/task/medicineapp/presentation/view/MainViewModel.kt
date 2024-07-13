@@ -8,7 +8,6 @@ import com.task.medicineapp.domain.usecases.GetUserUseCase
 import com.task.medicineapp.domain.usecases.SaveUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -44,6 +43,7 @@ class MainViewModel @Inject constructor(
                             data = data.data
                         )
                     }
+
                 } else {
                     val error = (data as NetworkResult.Error).error
                     _uiState.update {
@@ -73,10 +73,10 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(ioDispatcher) {
             runCatching {
                 val data = getUserUseCase(userName)
-                data?.let {
+                data?.let { user ->
                     _uiState.update {
                         it.copy(
-                            userName = it.userName,
+                            userName = user.userName,
                         )
                     }
                 } ?: run {
@@ -103,12 +103,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(ioDispatcher) {
             runCatching {
                 val data = saveUserUseCase(userName, password)
-                if (data > 0){
-                    _uiState.update {
-                        it.copy(
-                            userName = it.userName,
-                        )
-                    }
+                if (data > 0) {
                     getUser(userName)
                 } else {
                     _uiState.update {

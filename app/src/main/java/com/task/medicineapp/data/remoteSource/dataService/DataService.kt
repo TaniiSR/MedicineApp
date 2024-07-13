@@ -10,9 +10,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
 interface DataService {
-    @GET("0830d654-6967-4e12-b4f9-4fac4edbdec1")
+    @GET("54ad0a57-ba47-4efa-b5fb-681cb7437124")
     suspend fun fetchMedicines(): Response<DataResponse>
-
     companion object {
         private const val BASE_URL = "https://run.mocky.io/v3/"
         fun createService(): DataService {
