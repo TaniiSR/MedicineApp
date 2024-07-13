@@ -24,4 +24,4 @@
 
 Data Layer contains remote and local data repositories. In this project there is no Local scope that's why only remote repository exist.
 
-Domain layer contains contains usecases and presentaion layer contain UI.
+Domain layer contains contains use cases and presentation layer contain UI.
