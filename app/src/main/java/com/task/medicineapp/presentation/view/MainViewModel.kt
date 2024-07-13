@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.task.medicineapp.data.remoteSource.base.NetworkResult
 import com.task.medicineapp.domain.usecases.GetMedicinesUseCase
+import com.task.medicineapp.domain.usecases.GetUserUseCase
+import com.task.medicineapp.domain.usecases.SaveUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getMedicinesUseCase: GetMedicinesUseCase,
+    private val getUserUseCase: GetUserUseCase,
+    private val saveUserUseCase: SaveUserUseCase,
     private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
@@ -27,7 +31,7 @@ class MainViewModel @Inject constructor(
      * Get Medicines from the repository
      */
     fun getMedicines() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(ioDispatcher) {
             _uiState.update {
                 it.copy(isLoading = true)
             }
@@ -56,6 +60,67 @@ class MainViewModel @Inject constructor(
                         isLoading = false,
                         isError = true,
                         errorMessage = throwable.message ?: "An error occurred"
+                    )
+                }
+            }
+        }
+    }
+
+    /**
+     * Get User from the repository
+     */
+    fun getUser(userName: String) {
+        viewModelScope.launch(ioDispatcher) {
+            runCatching {
+                val data = getUserUseCase(userName)
+                data?.let {
+                    _uiState.update {
+                        it.copy(
+                            userName = it.userName,
+                        )
+                    }
+                } ?: run {
+                    _uiState.update {
+                        it.copy(
+                            errorMessage = "User not found"
+                        )
+                    }
+                }
+            }.onFailure {
+                _uiState.update {
+                    it.copy(
+                        errorMessage = "User not found"
+                    )
+                }
+            }
+        }
+    }
+
+    /**
+     * save User from the repository
+     */
+    fun saveUser(userName: String, password: String) {
+        viewModelScope.launch(ioDispatcher) {
+            runCatching {
+                val data = saveUserUseCase(userName, password)
+                if (data > 0){
+                    _uiState.update {
+                        it.copy(
+                            userName = it.userName,
+                        )
+                    }
+                    getUser(userName)
+                } else {
+                    _uiState.update {
+                        it.copy(
+                            errorMessage = "User not saved"
+                        )
+                    }
+                }
+            }.onFailure {
+                _uiState.update {
+                    it.copy(
+                        errorMessage = "User not saved"
                     )
                 }
             }

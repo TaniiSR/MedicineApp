@@ -23,7 +23,7 @@ import com.task.medicineapp.R
 
 @Composable
 fun LoginScreen(
-    onLoginClick: (String) -> Unit
+    onLoginClick: (userName :String, password :String) -> Unit
 ) {
     var name by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -68,7 +68,7 @@ fun LoginScreen(
                 boxModifier = Modifier.fillMaxWidth()
             ) {
                 if (name.isNotBlank() && password.isNotEmpty()) {
-                    onLoginClick(name)
+                    onLoginClick(name, password)
                 }
             }
         }

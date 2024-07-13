@@ -10,6 +10,7 @@ import com.task.medicineapp.data.dtos.DataResponse
 data class MainUIState(
     val isLoading: Boolean = false,
     val data: DataResponse? = null,
+    val userName: String = "",
     val isError: Boolean = false,
     val errorMessage: String = ""
 )

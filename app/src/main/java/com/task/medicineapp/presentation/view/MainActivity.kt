@@ -32,8 +32,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                     composable(MainScreensRoute.LoginScreen.route) {
                         LoginScreen(
-                            onLoginClick = {
-                                // Navigate to the next screen
+                            onLoginClick = { userName, password ->
+                                mainViewModel.saveUser(userName, password)
                             }
                         )
                     }
