@@ -84,14 +84,16 @@ class MainViewModel @Inject constructor(
                 } ?: run {
                     _uiState.update {
                         it.copy(
-                            errorMessage = "User not found"
+                            errorMessage = "User not found",
+                            isError = true
                         )
                     }
                 }
             }.onFailure {
                 _uiState.update {
                     it.copy(
-                        errorMessage = "User not found"
+                        errorMessage = "User not found",
+                        isError = true,
                     )
                 }
             }
@@ -110,14 +112,16 @@ class MainViewModel @Inject constructor(
                 } else {
                     _uiState.update {
                         it.copy(
-                            errorMessage = "User not saved"
+                            errorMessage = "User not saved",
+                            isError = true
                         )
                     }
                 }
             }.onFailure {
                 _uiState.update {
                     it.copy(
-                        errorMessage = "User not saved"
+                        errorMessage = "User not saved",
+                        isError = true
                     )
                 }
             }

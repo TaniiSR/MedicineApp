@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
+    id("de.mannodermaus.android-junit5")
 }
 
 android {
@@ -93,13 +94,19 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.androidx.core.ktx.test)
     testImplementation(libs.junit5.test)
+    testImplementation(libs.turbine.test)
+    testImplementation(libs.truth.test)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.junit5.extension)
     androidTestImplementation(libs.androidx.core.test)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
-    androidTestImplementation(libs.junit5.engine.test)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    testRuntimeOnly(libs.junit5.engine.test)
+    testRuntimeOnly(libs.vintage.test)
+    testImplementation(libs.arch.testing)
+    testImplementation(kotlin("test"))
+
 }

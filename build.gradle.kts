@@ -4,4 +4,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     alias(libs.plugins.dagger.hilt) apply false
     alias(libs.plugins.ksp) apply false
+    id("de.mannodermaus.android-junit5") version "1.10.0.0" apply false
+}
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
