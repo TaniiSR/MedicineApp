@@ -15,13 +15,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.task.medicineapp.data.dtos.Problem
 import com.task.medicineapp.presentation.view.MainUIState
 import com.task.medicineapp.utils.getGreetings
 
 @Composable
 fun MedicineListScreen(
     uiState: MainUIState,
-    onMedicineClick: () -> Unit
+    onMedicineClick: (medicine: Problem) -> Unit
 ) {
     Scaffold(modifier = Modifier.fillMaxSize())
     { innerPadding ->
@@ -43,7 +44,7 @@ fun MedicineListScreen(
             }
             items(uiState.data?.problems ?: emptyList()) { medicine ->
                 Card(
-                    onClick = onMedicineClick,
+                    onClick = { onMedicineClick(medicine) },
                     modifier = Modifier
                         .padding(horizontal = 20.dp, vertical = 10.dp)
                         .fillMaxWidth(),

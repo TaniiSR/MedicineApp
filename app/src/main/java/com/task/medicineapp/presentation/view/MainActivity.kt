@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.task.medicineapp.presentation.ui.LoginScreen
+import com.task.medicineapp.presentation.ui.MedicineDetailScreen
 import com.task.medicineapp.presentation.ui.MedicineListScreen
 import com.task.medicineapp.ui.theme.MedicineAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,9 +47,18 @@ class MainActivity : ComponentActivity() {
                         MedicineListScreen(
                             uiState = mainUIState,
                             onMedicineClick = {
-                                // Handle medicine click
+                                mainViewModel.medicineDetail = it
+                                navHostController.navigate(MainScreensRoute.MedicineDetailScreen.route)
                             }
                         )
+                    }
+                    composable(MainScreensRoute.MedicineDetailScreen.route) {
+                        mainViewModel.medicineDetail?.let {
+                            MedicineDetailScreen(it, onBackClick = {
+                                navHostController.popBackStack()
+                                mainViewModel.medicineDetail = null
+                            })
+                        }
                     }
                 }
             }

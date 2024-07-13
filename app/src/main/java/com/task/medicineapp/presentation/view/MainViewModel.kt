@@ -2,6 +2,7 @@ package com.task.medicineapp.presentation.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.task.medicineapp.data.dtos.Problem
 import com.task.medicineapp.data.remoteSource.base.NetworkResult
 import com.task.medicineapp.domain.usecases.GetMedicinesUseCase
 import com.task.medicineapp.domain.usecases.GetUserUseCase
@@ -25,6 +26,7 @@ class MainViewModel @Inject constructor(
     private val _uiState: MutableStateFlow<MainUIState> =
         MutableStateFlow(MainUIState())
     val uiState = _uiState.asStateFlow()
+    var medicineDetail : Problem? = null
 
     /**
      * Get Medicines from the repository
